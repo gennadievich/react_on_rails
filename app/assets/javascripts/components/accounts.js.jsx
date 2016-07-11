@@ -5,12 +5,17 @@ var Accounts = React.createClass({
   getDefaultProps: function(){
     return { accounts: [] }
   },
+  addAccount: function(account){
+    var accounts = this.state.accounts.slice();
+    accounts.push(account);
+    this.setState({accounts: accounts})
+  },
   render: function() {
     return <div className='accounts'>
       <h2 className="title">
         Accounts
       </h2>
-
+      {React.createElement(AccountForm, {handleNewAccount: this.addAccount})}
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -20,9 +25,9 @@ var Accounts = React.createClass({
           </tr>
         </thead>
         <tbody>
-          {this.state.accounts.map(function(account, i){
+          {this.state.accounts.map(function(account){
             return React.createElement(Account, {
-              key: i,
+              key: account.id,
               account: account
             })
           })
