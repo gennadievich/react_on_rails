@@ -31,6 +31,9 @@ var Accounts = React.createClass({
   balance: function(){
     return this.debits() + this.credits()
   },
+  handleClickBtn: function(){
+    $('.acc-form').slideToggle();
+  },
   render: function() {
     return <div className='accounts'>
       <h2 className="title">
@@ -41,7 +44,13 @@ var Accounts = React.createClass({
         {React.createElement(AccountBox, {type: 'danger', amount: this.debits(), text: 'Debit'})}
         {React.createElement(AccountBox, {type: 'info', amount: this.balance(), text: 'Balance'})}
       </div>
-      {React.createElement(AccountForm, {handleNewAccount: this.addAccount})}
+      <button onClick={this.handleClickBtn} className="btn">ShowHide Form</button>
+      <hr/>
+
+      <div className="acc-form" style={{display: 'none'}}>
+        {React.createElement(AccountForm, {handleNewAccount: this.addAccount})}
+      </div>
+
       <hr/>
       <table className="table table-bordered">
         <thead>
