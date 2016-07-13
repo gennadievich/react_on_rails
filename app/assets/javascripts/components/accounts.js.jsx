@@ -34,6 +34,13 @@ var Accounts = React.createClass({
   handleClickBtn: function(){
     $('.acc-form').slideToggle();
   },
+  deleteAccount: function(account){
+    var accounts, index;
+    accounts = this.state.accounts.slice();
+    index = accounts.indexOf(account);
+    accounts.splice(index, 1);
+    this.replaceState({accounts: accounts});
+  },
   render: function() {
     return <div className='accounts'>
       <h2 className="title">
@@ -58,15 +65,18 @@ var Accounts = React.createClass({
             <th>Date</th>
             <th>Title</th>
             <th>Amount</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {this.state.accounts.map(function(account){
-            return React.createElement(Account, {
-              key: account.id,
-              account: account
-            })
-          })
+          {
+            this.state.accounts.map(function(account){
+              return (React.createElement(Account, {
+                key: account.id,
+                account: account,
+                handleDeleteAccount: this.deleteAccount
+              }));
+            }.bind(this))
           }
         </tbody>
       </table>
