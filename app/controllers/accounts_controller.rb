@@ -19,6 +19,15 @@ class AccountsController < ApplicationController
     head :no_content
   end
 
+  def update
+    @account = Account.find(params[:id])
+    if @account.update(acc_params)
+      render json: @account
+    else
+      render json: @account.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def acc_params

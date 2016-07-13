@@ -41,6 +41,13 @@ var Accounts = React.createClass({
     accounts.splice(index, 1);
     this.replaceState({accounts: accounts});
   },
+  updateAccount(account, data){
+    var accounts, index;
+    accounts = this.state.accounts.slice();
+    index = accounts.indexOf(account);
+    accounts.splice(index, 1, data);
+    this.replaceState({accounts: accounts});
+  },
   render: function() {
     return <div className='accounts'>
       <h2 className="title">
@@ -74,7 +81,8 @@ var Accounts = React.createClass({
               return (React.createElement(Account, {
                 key: account.id,
                 account: account,
-                handleDeleteAccount: this.deleteAccount
+                handleDeleteAccount: this.deleteAccount,
+                handleEditAccount: this.updateAccount
               }));
             }.bind(this))
           }
