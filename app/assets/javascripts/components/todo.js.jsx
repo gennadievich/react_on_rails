@@ -1,7 +1,15 @@
 var Todo = React.createClass({
   render(){
-    return <div>
-      {this.props.title}
-    </div>
+    if (this.props.done) {
+      return <div>
+        <span>{this.props.title}</span>
+        <span> Done!</span>
+      </div>
+    } else {
+      return <div>
+        <span>{this.props.title}</span>
+        <span> Not done yet.</span>
+      </div>
+    }
   }
 });

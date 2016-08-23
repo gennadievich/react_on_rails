@@ -6,9 +6,9 @@ var Todos = React.createClass({
     return { todos: [] }
   },
   handleEnterPress(e){
-    if (e.key === 'Enter' && e.target.value.length) {
+    var title = e.target.value;
+    if (e.key === 'Enter' && title.length) {
       var self = this;
-      var title = e.target.value;
       $.ajax({
         url: '/todos',
         method: 'POST',
@@ -27,7 +27,7 @@ var Todos = React.createClass({
        <input className="input1" placeholder="What needs to be done?" onKeyPress={this.handleEnterPress}/>
        {
          this.state.todos.map(function(todo){
-           return <Todo key = {todo.id} title = {todo.title}/>
+           return <Todo key = {todo.id} title = {todo.title} done = {todo.done}/>
          })
        }
      </div>
