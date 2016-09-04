@@ -14,6 +14,20 @@ var CommentBox = React.createClass({
       this.setState({data: comments})
     }.bind(this))
   },
+  loadCommentsFromServer: function(){
+    $.ajax({
+      url: '/comments/get_comments/',
+      method: 'GET',
+      dataType: 'JSON'
+    }).success(function(data){
+      console.log(data);
+      this.setState({data: data})
+    }.bind(this))
+  },
+  componentDidMount: function(){
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, 10000)
+  },
   render: function(){
     return(
       <div className="commentBox">
